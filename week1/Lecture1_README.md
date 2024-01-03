@@ -8,9 +8,11 @@ Modern embedded systems programming starts with the hardware and extends all the
 
 - **Instructor**: Sep Makhsous (sosper30@uw.edu)
     - Office hour: By Appointment
-- **Teaching Assistant**: Sanskar Naik
-    - Office hours: [Schedule](https://canvas.uw.edu/courses/1612505/modules/items/17326343)
-- **Grader**: Booker Hu (bukehu@uw.edu)
+- **Teaching Assistant**:
+    - Sanjar Normuradov snn98@uw.edu 
+    - Armagan Er armagan@uw.edu 
+    - Trung Le tle45@uw.edu 
+    - Office hours: [LINK](https://docs.google.com/spreadsheets/d/1rZKNwzfEChZ2OtAtMxDMqFF4eOydgzL2VzhzKrwOlPc/edit?usp=sharing)
 
 Today
 ---
@@ -30,20 +32,11 @@ Syllabus
 - Week 9: Mobile Robot Control
 - Week 10: Networking
 
-Course Structure
-===
-
-- Lectures are on Mondays and Wednesdays from 4 to 5:50pm in room ECE 045
-- You need to submit your Homeworks via Github and also need to submit your git repo link on the Canvas. We will clone your code and run unit tests in a Docker container.
-- You may not copy or otherwise incorporate other people’s code into your own. 
-- Discussing strategies and ideas is alright.
-- Discussions: on Slack.
-
 Resources
 ---
-- **Canvas**: https://canvas.uw.edu/courses/1612505
+- **Canvas**
 - **Github**
-    - Course repo: https://github.com/sosper30/eep520
+    - Course repo: https://github.com/sosper30/eep520-wi24
         - Lecture notes in week_1/README.md (go there now)
     - Your homework repo (more on this later)
 - **Docker**: https://docs.docker.com/get-docker/
@@ -90,6 +83,7 @@ Installing Git
 Mac
 ---
 - Install the Xcode Command Line Tools. These tools include git.
+- Or you can download the app - search for "github for Mac"
 
 Windows
 ---
@@ -98,7 +92,7 @@ Windows
 Course Code
 ===
 
-Make a code directory for the course and make it your working directory (use Terminal for MacOs or the Command line for Windows PCs).
+Make a code directory for the course and make it your working directory (Optional: use Terminal for MacOs or the Command line for Windows PCs).
 
 Get the code for the course:
 
