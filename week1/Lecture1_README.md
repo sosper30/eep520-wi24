@@ -8,9 +8,11 @@ Modern embedded systems programming starts with the hardware and extends all the
 
 - **Instructor**: Sep Makhsous (sosper30@uw.edu)
     - Office hour: By Appointment
-- **Teaching Assistant**: Sanskar Naik
-    - Office hours: [Schedule](https://canvas.uw.edu/courses/1612505/modules/items/17326343)
-- **Grader**: Booker Hu (bukehu@uw.edu)
+- **Teaching Assistant**:
+    - Sanjar Normuradov snn98@uw.edu 
+    - Armagan Er armagan@uw.edu 
+    - Trung Le tle45@uw.edu 
+    - Office hours: [LINK](https://docs.google.com/spreadsheets/d/1rZKNwzfEChZ2OtAtMxDMqFF4eOydgzL2VzhzKrwOlPc/edit?usp=sharing)
 
 Today
 ---
@@ -30,20 +32,11 @@ Syllabus
 - Week 9: Mobile Robot Control
 - Week 10: Networking
 
-Course Structure
-===
-
-- Lectures are on Mondays and Wednesdays from 4 to 5:50pm in room ECE 045
-- You need to submit your Homeworks via Github and also need to submit your git repo link on the Canvas. We will clone your code and run unit tests in a Docker container.
-- You may not copy or otherwise incorporate other people’s code into your own. 
-- Discussing strategies and ideas is alright.
-- Discussions: on Slack.
-
 Resources
 ---
-- **Canvas**: https://canvas.uw.edu/courses/1612505
+- **Canvas**
 - **Github**
-    - Course repo: https://github.com/sosper30/eep520
+    - Course repo: https://github.com/sosper30/eep520-wi24
         - Lecture notes in week_1/README.md (go there now)
     - Your homework repo (more on this later)
 - **Docker**: https://docs.docker.com/get-docker/
@@ -90,6 +83,7 @@ Installing Git
 Mac
 ---
 - Install the Xcode Command Line Tools. These tools include git.
+- Or you can download the app - search for "github for Mac"
 
 Windows
 ---
@@ -98,14 +92,14 @@ Windows
 Course Code
 ===
 
-Make a code directory for the course and make it your working directory (use Terminal for MacOs or the Command line for Windows PCs).
+Make a code directory for the course and make it your working directory (Optional: use Terminal for MacOs or the Command line for Windows PCs).
 
 Get the code for the course:
 
 ```bash
-git clone https://github.com/sosper30/eep520
+git clone https://github.com/sosper30/eep520-wi24
 OR
-git clone git@github.com:sosper30/eep520.git
+git clone git@github.com:sosper30/eep520-wi24.git
 ```
 Nowadays git uses extra layer of protection when cloning private repositories from github, you need to check [this](https://docs.github.com/en/get-started/getting-started-with-git/about-remote-repositories#cloning-with-https-urls) before cloning any private repository like eep520.
 
@@ -122,9 +116,9 @@ Git setup for homework
 - Git should be easy to install on any OS
 - Go to Github and make a new repo called 520-Assignments (*with no README*)
 - Make the repo **private**
-- Invite Professor, Sanskar, and Booker to your repo
+- Invite Professor, and the TAs to your repo
 - Follow these steps to invite someone on your git repo        [here](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-access-to-your-personal-repositories/inviting-collaborators-to-a-personal-repository)
-- Our git usernames are: **sosper30**, **sanskarnaik**, and **hubuke**.
+- Our git usernames are: **sosper30**, **SanjarNormuradov**, **Sarmagan**, and **trungleUW**.
 
 Then do
 
