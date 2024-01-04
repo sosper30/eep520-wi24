@@ -97,9 +97,9 @@ Make a code directory for the course and make it your working directory (Optiona
 Get the code for the course:
 
 ```bash
-git clone https://github.com/sosper30/eep520
+git clone https://github.com/sosper30/eep520-wi24
 OR
-git clone git@github.com:sosper30/eep520.git
+git clone git@github.com:sosper30/eep520-wi24.git
 ```
 Nowadays git uses extra layer of protection when cloning private repositories from github, you need to check [this](https://docs.github.com/en/get-started/getting-started-with-git/about-remote-repositories#cloning-with-https-urls) before cloning any private repository like eep520.
 
