@@ -1,6 +1,6 @@
 #include "hello.h"
 
-/*! \mainpage Hello World
+/*! mainpage Hello World
  * A simple hello world example in C showing how to split code up among several files.
  */
 
