@@ -1,2 +1,2 @@
-# EEP_520_Winter2023
+# EEP_520_Winter2024
 Software Engineering for Embedded Applications

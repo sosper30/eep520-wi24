@@ -129,8 +129,9 @@ touch README.md                # touch command creates a new file on the local m
 git init
 git add .
 git commit -m "first commit"
+git branch -M main  # (Optional) rename the current branch from "master" to "main"
 git remote add origin https://github.com/yourusername/520-Assignments.git
-git push -u origin main
+git push -u origin main # If you didn't rename the branch from "master" to "main", then do "git push -u origin master"
 // edit and/or add some files
 git add .
 git commit -m "Changed some files"
