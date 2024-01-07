@@ -1,6 +1,6 @@
 # Software Engineering For Embedded Applications
 
-## Lecture 2 (January 9, 2023) - C Syntax and Data Types
+## Lecture 2 - C Syntax and Data Types
 
 ---
 
