@@ -322,7 +322,8 @@ UNIX: Important Places
 - `/dev` devices. These are not really files. Unix makes devices look like files, so you read and write to them to control devices.
 
 **Exercises:**
-- The `cat x` command outputs the contents of the file x. Look in the file `/usr/include/limits.h` and determin the maximume side of an integer, by finding the definition of the macro `INT_MAX`.
+- The `cat x` command outputs the contents of the file x. Look in the file `/usr/include/limits.h` and determine the maximum size of an integer, by finding the definition of the macro `INT_MAX`.
+If you don't have neither `include` folder nor `limits.h` file, create one and fill the `limits.h` file with [this content](https://sites.uclouvain.be/SystInfo/usr/include/limits.h.html).
 
 UNIX: Text files
 ===
