@@ -273,15 +273,15 @@ Vocabulary:
 - **image**: stateless set of files in a filesystem
 - **container**: A running unix kernel using that filesystem
 
-To mount the `week_1` directory in a docker container and access the shell within the container, do:
+To mount the `week1` directory in a docker container and access the shell within the container, do:
 ```bash
-docker run -v $PWD/week_1:/source -it klavins/520w20:cpp bash
+docker run -v $PWD/week1:/source -it klavins/520w20:cpp bash
 ```
 on a Mac or Linux.
 
 On windows you will have to use the full path, as in
 ```bash
-docker run -v /c/Users/You/Code/EEP520-W20/week_1:/source -it klavins/ecep520:cppenv bash
+docker run -v /c/Users/You/Code/EEP520-W20/week1:/source -it klavins/ecep520:cppenv bash
 ```
 
 The current directory will be mounted as though it were a disk drive at the container directory `/source`, which is also where you'll be when you start the image.
