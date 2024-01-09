@@ -362,6 +362,46 @@ UNIX: Processes
 - Use ps to find out its process id
 - Use kill to kill the process.
 
+**Exercise: UNIX File Management Basics**
+Objective
+The goal of this exercise is to familiarize yourself with basic UNIX commands for managing files and directories.
+
+Tasks
+Create a New Directory
+
+Use the mkdir command to create a new directory named UnixExercise in your home directory.
+Navigate to the New Directory
+
+Change your current working directory to UnixExercise using the cd command.
+Create Files
+
+Within UnixExercise, create three empty files named file1.txt, file2.txt, and file3.txt. You can use the touch command for this.
+List Files
+
+Use the ls command to list all the files in UnixExercise.
+Write Content to a File
+
+Use a text editor like nano or vi to open file1.txt and write a few lines of text in it. Save and exit the editor.
+Display File Content
+
+Use the cat command to display the contents of file1.txt.
+Copy a File
+
+Copy file1.txt to a new file named file1_backup.txt using the cp command.
+Rename a File
+
+Rename file2.txt to file2_renamed.txt using the mv command.
+Move a File
+
+Create a new directory inside UnixExercise named Backup.
+Move file1_backup.txt to the Backup directory.
+Delete a File
+
+Delete file3.txt using the rm command.
+Bonus Task: View Directory Structure
+
+Use the tree command to view the structure of UnixExercise. (Install the tree package if it's not already installed on your system.)
+
 More UNIX Resources
 ===
 
