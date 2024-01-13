@@ -236,7 +236,12 @@ You can either use docker to build an "image" with all this stuff installed.
 
 Or you can use pre-build images in the Dockerfile for this course, available at
 
-> [https://hub.docker.com/r/klavins/520w20](https://hub.docker.com/r/klavins/520w20).
+> [https://hub.docker.com/r/klavins/ecep520](https://hub.docker.com/r/klavins/ecep520).
+
+To download the image, run in a terminal window the following command:
+```
+docker pull klavins/ecep520:cppenv
+```
 
 Installing Docker
 ===
@@ -273,9 +278,14 @@ Vocabulary:
 - **image**: stateless set of files in a filesystem
 - **container**: A running unix kernel using that filesystem
 
+Make sure you downloaded the image with the following command in a terminal window:
+```
+docker pull klavins/ecep520:cppenv
+```
+
 To mount the `week1` directory in a docker container and access the shell within the container, do:
 ```bash
-docker run -v $PWD/week1:/source -it klavins/520w20:cpp bash
+docker run -v $PWD/week1:/source -it klavins/ecep520:cppenv bash
 ```
 on a Mac or Linux.
 
