@@ -54,7 +54,7 @@ You should have Docker running on your computer by now. For the next several wee
 Within your host environment you will execute a command like
 
 ```bash
-docker run -v /path/to/EEP520_code_on_your_local_machine:/source -it klavins/520w20:cpp bash
+docker run -v /path/to/EEP520_code_on_your_local_machine:/source -it klavins/ecep520:cppenv bash
 ```
 
 to get a `bash` prompt that allows you to run commands within the "container environment".
