@@ -296,9 +296,9 @@ docker run -v /c/Users/You/Code/EEP520-W20/week1:/source -it klavins/ecep520:cpp
 
 The current directory will be mounted as though it were a disk drive at the container directory `/source`, which is also where you'll be when you start the image.
 
-**Note:** Files is the mounted directory can be edited from the host machine.
+**Note:** Files in the mounted directory can be edited from the host machine terminal session.
 
-**Note:** If you start and stop and restart a container, all changes to the image are lost.
+**Note:** If you start, stop, and restart a container, all changes to the image are lost.
 
 UNIX: Filesystem
 ===
