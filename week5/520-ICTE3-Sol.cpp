@@ -92,3 +92,32 @@ and STL containers. The program should create a two-dimensional array of integer
 with a size specified by the user, fill the array with numbers, and then use an STL container, 
 such as a vector, to store the sums of the rows in the array.
 */
+
+#include <iostream>
+#include <vector>
+
+int main() {
+
+    //prompt the user for the dimensions of the your 2D array (get rows and cols)
+    /*
+    your code goes here
+    */
+
+   //allocate memory 
+   
+   
+   //Create a vector to store the sum of each row
+
+   //fill the array and calculate the row sums
+
+   //use push_back to store the sum in the vector
+
+   //print out the sum of each row
+
+
+   //dont forget to deallocate
+
+
+
+    return 0;
+}
