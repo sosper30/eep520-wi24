@@ -1,123 +1,135 @@
-/*
-Task 1
-Memory Management: Write a C++ program that demonstrates 
-the use of dynamically allocating and deallocating memory 
-using new and delete operators. 
-The program should create an array of integers with 
-a size specified by the user, fill the array with numbers, 
-and then deallocate the memory.
-*/
-
+/*!
+ * \brief Main function demonstrating dynamic array allocation in C++.
+ *
+ * This program prompts the user to enter the size of an array and then
+ * dynamically allocates memory for that array. It fills the array with numbers
+ * from 1 to the specified size, prints each element, and then deallocates the memory.
+ *
+ * \return int Returns 0 upon successful execution.
+ */
 #include <iostream>
 
-int main (){
+int main() {
+    int size;
 
-    //Task 1 requirement: using cin, new, and delete. 
-    using namespace std;
-    int ArraySize; //to ask the user and save it somewhere
+    // Prompting the user to enter the size of the array
+    std::cout << "Enter the size of the array: ";
+    std::cin >> size;
 
-    //lets ask the user to give us the array size and then save it in ArraySize
-    cout << "Enter the array size you have in mind:";
-    cin >> ArraySize;
+    // Dynamically allocating memory for an array of integers
+    int* arr = new int[size];
 
-    //how to allocate memory to this new array using "new"
-    int* arr = new int[ArraySize];
-
-    for (int i=0; i<ArraySize; i++){
-        arr[i]=i+3;
-        cout << "Array[" << i << "]=" << arr[i] << endl;
+    // Filling the array and printing each element
+    for (int i = 0; i < size; ++i) {
+        arr[i] = i + 1;
+        std::cout << "Array[" << i << "] = " << arr[i] << std::endl;
     }
 
-    //deallocating memory
+    // Deallocating the dynamically allocated memory
     delete[] arr;
-    
+
     return 0;
 }
-//----------------------------------------------------------------------------------------------
-/*
-Task 2: 
-STL: Write a C++ program that demonstrates the use of STL containers,
- specifically vectors. The program should use a vector to store
- a list of student names and grades, and then print out the average grade of all students. 
- you need at least 2 students.
-*/
 
+
+//-----------------------------------------------------------------------------------------------
+/*!
+ * \brief Main function demonstrating the use of vectors and structs to store student information.
+ *
+ * This program creates a vector of `Student` structs, prompts the user for the
+ * number of students, and then allows entry of each student's name and grade.
+ * It then calculates and displays the average grade.
+ *
+ * \return int Returns 0 upon successful execution.
+ */
 #include <iostream>
 #include <vector>
 #include <string>
 
+// Define a structure to store student information
 struct Student {
-    std::string name;
-    double grade;
+    std::string name; // Student's name
+    double grade;     // Student's grade
 };
 
-int main (){
-    using namespace std;
-   
-    //alternative approach
-    //vector<string> StudentNames;
-    //vector<double> StudentGrades;
-
-    //requirement: use vector (and maybe string). 
-    vector<Student> students;
+int main() {
+    std::vector<Student> students;
     int numStudents;
 
-    cout << "Enter the number of students: ";
-    cin >> numStudents;
+    // Asking user for the number of students
+    std::cout << "Enter the number of students: ";
+    std::cin >> numStudents;
 
-    for (int i=0; i<numStudents; i++){
-        Student student; //creating a student instance
-        cout << "Enter the name and grade of the student" << i <<": ";
-        cin >> student.name >> student.grade;
+    // Inputting each student's information
+    for (int i = 0; i < numStudents; ++i) {
+        Student student;
+        std::cout << "Enter name and grade for student " << i + 1 << ": ";
+        std::cin >> student.name >> student.grade;
         students.push_back(student);
     }
 
+    // Calculating and displaying the average grade
     double sum = 0;
-    for (const auto& student : students){
+    for (const auto& student : students) {
         sum += student.grade;
     }
-
-    double average = sum/students.size();
-    cout << "Avergae Grade is: " << average << endl;
+    double average = sum / students.size();
+    std::cout << "Average grade: " << average << std::endl;
 
     return 0;
 }
 
-//----------------------------------------------------------------------------------------------
-/*
-Task 3: 
-Memory Management and STL Combined: 
-Write a C++ program that demonstrates the use of both dynamic memory allocation 
-and STL containers. The program should create a two-dimensional array of integers 
-with a size specified by the user, fill the array with numbers, and then use an STL container, 
-such as a vector, to store the sums of the rows in the array.
-*/
 
+
+//-----------------------------------------------------------------------------------------------
+/*!
+ * \brief Main function demonstrating the creation and use of a dynamically allocated 2D array.
+ *
+ * This program prompts the user for the dimensions of a 2D array, dynamically
+ * creates it, fills it with sequential values, calculates the sum of each row,
+ * and then deallocates the memory.
+ *
+ * \return int Returns 0 upon successful execution.
+ */
 #include <iostream>
 #include <vector>
 
 int main() {
+    int rows, cols;
 
-    //prompt the user for the dimensions of the your 2D array (get rows and cols)
-    /*
-    your code goes here
-    */
+    // Prompting user for the dimensions of the 2D array
+    std::cout << "Enter the number of rows and columns: ";
+    std::cin >> rows >> cols;
 
-   //allocate memory 
-   
-   
-   //Create a vector to store the sum of each row
+    // Dynamically creating a 2D array
+    int** array = new int*[rows];
+    for (int i = 0; i < rows; ++i) {
+        array[i] = new int[cols];
+    }
 
-   //fill the array and calculate the row sums
+    // Vector for storing the sum of each row
+    std::vector<int> rowSums;
 
-   //use push_back to store the sum in the vector
+    // Filling the array and calculating row sums
+    for (int i = 0; i < rows; ++i) {
+        int sum = 0;
+        for (int j = 0; j < cols; ++j) {
+            array[i][j] = i * cols + j + 1;
+            sum += array[i][j];
+        }
+        rowSums.push_back(sum);
+    }
 
-   //print out the sum of each row
+    // Printing the sum of each row
+    for (int i = 0; i < rows; ++i) {
+        std::cout << "Sum of row " << i << " = " << rowSums[i] << std::endl;
+    }
 
-
-   //dont forget to deallocate
-
-
+    // Deallocating the dynamically allocated 2D array
+    for (int i = 0; i < rows; ++i) {
+        delete[] array[i];
+    }
+    delete[] array;
 
     return 0;
 }
