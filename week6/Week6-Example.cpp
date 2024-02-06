@@ -83,6 +83,12 @@ class Derived : public Base {
 
 int main(){
     // write a test that uses print() and figure out if we successfully replaced Base with Derived 
+    Base* basePtr;
+    Derived derivedObj;
+
+    basePtr = &derivedObj;
+
+    basePtr->print();
 
     return 0;
 }
