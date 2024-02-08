@@ -24,9 +24,9 @@
 - Callbacks
 - Associative containers
 
-This week, we continue our investigation of the C++ Standard Template Library (STL). This library includes varitions on templated, dynamic, sequential containers such as queues, lists, and arrays. It also includes maps, sets, and a set of generic algoprithms we can use to operate on these objects. Most C++ programs make heavy use of these templates and algorithms, avoiding dynamic memory management as much possible. These week we will introduce these templates at a high level. The complete documentation for the STL can be found at [http://www.cplusplus.com/reference/stl/](http://www.cplusplus.com/reference/stl/).
+This week, we continue our investigation of the C++ Standard Template Library (STL). This library includes varitions on templated, dynamic, sequential containers such as queues, lists, and arrays. It also includes maps, sets, and a set of generic algorithms we can use to operate on these objects. Most C++ programs make heavy use of these templates and algorithms, avoiding dynamic memory management as much as possible. These week we will introduce these templates at a high level. The complete documentation for the STL can be found at [http://www.cplusplus.com/reference/stl/](http://www.cplusplus.com/reference/stl/).
 
-Next week, we will begin to focus on the types and classes needed to represent common tasks in embedded systems. We will introduce classes for sensors, effectors, processes, a process manager, and a scheduler. Together, these classes will allow us to write complex, event driven, reactive systems that are at the heart of embedded systems and robotics control systems. We will build the classes and modules we need to implement these ideas almost exclusively using the STL.
+Next week, we will begin to focus on the types and classes needed to represent common tasks in embedded systems. We will introduce classes for sensors, processes, a process manager, and a scheduler. Together, these classes will allow us to write complex, event driven, reactive systems that are at the heart of embedded systems and robotics control systems. We will build the classes and modules we need to implement these ideas almost exclusively using the STL.
 
 # Resources
 
@@ -72,7 +72,7 @@ private:
 
     double * buffer;
 
-    const int INITIAL_CAPACITY = 10;       // Instead of a global #define, we use an class
+    const int INITIAL_CAPACITY = 10;       // Instead of a global #define, we use a class
                                            // defined constant, that is only available within
                                            // the class
 
@@ -103,7 +103,7 @@ The constructor in a class is responsible for
 
 - initializing variables
 - allocating memory (if needed)
-  If the objects constructed do not need memory allocation, then C++ provides a default constructor, so you do not need to define one. For example, if you defined class as
+  If the objects constructed do not need memory allocation, then C++ provides a default constructor, so you do not need to define one. For example, if you defined a class as
 
 ```c++
 class Complex {
@@ -112,7 +112,7 @@ class Complex {
 };
 ```
 
-then you can simple make a new Imaginary number with
+then you can simply make a new complex number with
 
 ```c++
 Complex x;
@@ -170,16 +170,15 @@ DoubleArray::DoubleArray() {                     // Note the namespace :: operat
 
 Note that the contructor does not explictly return a value. In fact, it is called after an object is created either in a variable declaration or when using `new`.
 
-# A Range Constructor
+# Range Constructor
 
 The other constructors can build on this code, without having to do everything again, by using the initialization syntax to initialize the object being constructed using the default constructor (the one with no arguments), and then adding more to the object in the body of the function.
 
 ```c++
 DoubleArray::DoubleArray(double a, double b, double step) : DoubleArray() {
     int i = 0;
-    for ( double x=a; x<=b; x += step ) {
+    for (double x = a; x <= b; x += step, ++i) {
         set(i, x);
-        i+=1;
     }
 }
 ```
@@ -190,11 +189,11 @@ To declare a binary operator, such as `==`, we do:
 
 ```c++
 bool operator==(const DoubleArray& a, const DoubleArray& b) {
-    if ( a.size() != b.size() ) {
+    if (a.size() != b.size()) {
         return false;
     }
-    for(int i=0; i<a.size(); i++) {
-        if ( a.get(i) != b.get(i) ) {
+    for(int i = 0; i < a.size(); i++) {
+        if (a.get(i) != b.get(i)) {
             return false;
         }
     }
@@ -212,7 +211,7 @@ You can now use ASSERT_EQ with arrays.
 TEST(DoubleArray, Equality) {
     DoubleArray a(0,1,0.1), b(0,1,0.1), c(1,2,0.1);
     ASSERT_EQ(a, b);
-    ASSERT_NE(a,c);
+    ASSERT_NE(a, c);
 }
 ```
 
@@ -238,28 +237,28 @@ C++ needs to know what it means to assign one `DoubleArray` to have the value of
 
 ```c++
 DoubleArray& DoubleArray::operator=(const DoubleArray& other) {
-    if ( this != &other) {
+    if (this != &other) {
         delete[] buffer; // don't forget this or you'll get a memory leak!
         buffer = new double[other.capacity]();
         capacity = other.capacity;
         origin = other.origin;
         end = origin;
-        for ( int i=0; i<other.size(); i++) {
-            set(i,other.get(i));
+        for (int i = 0; i < other.size(); i++) {
+            set(i, other.get(i));
         }
     }
     return *this;
 }
 ```
 
-Think of this code as defining a method called `=` that would be called with `set y to be =(x)` (psuedocode).
+Think of this code as defining a method called `=` that would be called with `set y to be =(x)` (pseudocode).
 This method uses the keyword `this`, which refers to the object being operated on. In our C array class, we passed a pointer (usually called `da`) to the object as the first argument to every function. In C++ the pointer is implicit, but can be access if needed with `this`. In the above code, `this` refers to the assignee (the left hand side of `y=x`) and `other` refers to the object being copied. Thus, the first line checks that these two are not the same (if they are, there is nothing to do -- although you could leave this out and truely make a copy).
 
 Also note that the method accesses the private members of `other`, which is okay because this is a class method.
 
 # Returning Referenes
 
-Finally, notice that the method returns a reference to the result of the copy. This is actually not needed to assign the left hand side (that's done in the body of the method), but is needed because an expression like `y=x` itself has a value, which should be a reference to `y`. This is so you can do things like
+Finally, notice that the method returns a reference to the result of the copy. This is actually not needed to assign the left hand side (that's done in the body of the method), but is needed because an expression like `y = x` itself has a value, which should be a reference to `y`. This is so you can do things like
 
 ```c++
 y = x = z;
