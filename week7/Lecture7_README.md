@@ -1,7 +1,5 @@
 # Software Engineering For Embedded Applications
 
-## Week 7 (February 13, 2023): Event Loop Management
-
 ### Review: Overloading "=", a.k.a. the Assignment Operator
 
 ```c++
