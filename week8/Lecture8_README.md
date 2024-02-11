@@ -1,7 +1,5 @@
 # Software Engineering For Embedded Applications
 
-## Week 8 (February 22, 2023): Events and Finite State Machines
-
 ---
 
 Last week we built a simple process manager that included an abstract base class, `Process`, from which users can derive their own processes. We also defined a `Channel` class that enabled processes to send streams of values to each other.
