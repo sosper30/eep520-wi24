@@ -1,6 +1,5 @@
 # Software Engineering For Embedded Applications
 
-## Week 9 (February 27th, 2023):  Mobile Robot Control
 
 Last week we learned:
 
