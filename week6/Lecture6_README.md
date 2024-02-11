@@ -752,10 +752,10 @@ Lambdas becomes useful when using generic algorithms, such as `transform`, which
 ```c++
 vector<int> v = { 1, 2, 3, 4, 5 };
 transform(
-    v.begin(),    // start of elements to transform
-    v.end(),      // end of elements to transform
-    v.begin(),      // start of where to put elements to transform
-    [](double x) { return x*x; }
+    v.begin(),  // start of input elements to be transformed
+    v.end(),    // end of input elements to be transformed
+    v.begin(),  // output location where transformed inputs are written
+    [](double x) { return x*x; }  // function that transforms inputs and write into output locations
 );
 ```
 
@@ -766,12 +766,12 @@ Note that lambda expressions do not return function pointers. Rather, they retur
 The square brackets of a lambda expression can list variables to _capture_ from the surrounding scope. For example, if we define a function like this:
 
 ```c++
-void add_to_all(vector<int> &v, int x) {
+void add_to_all(vector<int>& v, int x) {
     transform(
         v.begin(),
         v.end(),
         v.begin(),
-        [](int y) { return x+y; } // WRONG!
+        [](int y) { return x + y; } // WRONG!
     );
 }
 ```
@@ -779,33 +779,33 @@ void add_to_all(vector<int> &v, int x) {
 the C++ compiler will complain that the lambda expression does not have access to the variable `x` in its scope. We can fix this by _capturing_ `x` as follows:
 
 ```c++
-void add_to_all(vector<int> &v, int x) {
+void add_to_all(vector<int>& v, int x) {
     transform(
         v.begin(),
         v.end(),
         v.begin(),
-        [x](int y) { return x+y; } // RIGHT!
+        [x](int y) { return x + y; } // RIGHT!
     );
 }
 ```
 
 # Callbacks
 
-Sometimes you want to send a function to another function. For example, you might do
+Sometimes you want to pass a function as a callback function to another function. For example, you might do
 
 ```c++
 sleep_then(10, []() { cout << "Ten seconds have passed\n"; });
 cout << "I am waiting\n";
 ```
 
-If the sleep function executes in another thread waiting for ten seconds and then running its callback, then you would get the output:
+If the sleep_then() function is executed apart from the main program flow in another thread, i.e. waiting for ten seconds and then running its callback, then the main program flow continues after calling sleep_then() and you would get the output:
 
 ```
 I am waiting
 Ten seconds have passed
 ```
 
-We will get to code like this in a few weeks.
+We will get to code like a `sleep_then()` function in a few weeks.
 
 # Example Lambda as Argument
 
