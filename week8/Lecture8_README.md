@@ -365,8 +365,8 @@ json j = {
     {
         "ta", {
             {
-                { "first", "Sanskar" },
-                { "last", "Naik" }
+                { "first", "Sanjar" },
+                { "last", "Normuradov" }
             }
         },
     },
