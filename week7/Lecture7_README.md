@@ -461,8 +461,8 @@ std::cout << y.count() << " years since 1970\n";
 which prints something like
 
 ```bash
-1620864190715619117 ns since 1970
-51.3973 years since 1970
+1707787416070272743 ns since 1970
+54.1536 years since 1970
 ```
 
 # Tracking Program Execution
