@@ -63,16 +63,16 @@ cout << *f3; // 6
 
 In the first two cases, `find` is using the `begin` and `end` methods of the `vector` and `string` containers. In the last case, we use the global methods `begin` and `end` to construct new iterators for the C style array `a`, which doesn't have any methods of its own.
 
-The `find` algorithm works on _any_ object that defines `==`. Other algorithms, such as `sort` work on any object that defines `<`. That's whjy they are called _generic_.
+The `find` algorithm works on _any_ object that defines `==`. Other algorithms, such as `sort` works on any object that defines `<`. That's why they are called _generic_.
 
 # More Read-Only Algorithms
 
 Here are a few more _read only_ algorithms (ones that do not change their arguments) like find:
 
 ```c++
-vector<int> v = { 1, 2, 3, 4, 5 },
-            w = { 2,3,4,5,6,6,7,8 };
-accumulate(v.begin(), v.end(), 0);    // sum of elements in v
+vector<int> v = {1, 2, 3, 4, 5},
+            w = {2, 3, 4, 5, 6, 6, 7, 8};
+accumulate(v.begin(), v.end(), 0);    // add all elements in v to initial sum (== 0)
 count(v.begin(), v.end(), 3);         // number of occurences of 3 in v
 equal(v.begin(), v.end(), w.begin()); // true if first v.size() elements are equal to the
                                       // first v.size() elements of w, which must have equal
@@ -85,10 +85,10 @@ Algorithms that change the underlying array, include things like `sort` and `fil
 
 ```c++
 sort(v.begin(), v.end());                 // sort the elements
-fill(v.begin(), v.end(), 1);              // replace element with third argument
+fill(v.begin(), v.end(), 1);              // replace element with third argument (== 1)
 fill_n(v.begin(), 3, 1);                  // replace three elements at the beginning with 1
 copy(v.begin(), v.end(), w.begin() + 3);  // copy v into w starting at position 3
-replace(v.begin(), v.end(), 3,-1);        // replace element at position 3 with -1
+replace(v.begin(), v.end(), 3, -1);        // replace element at position 3 with -1
 ```
 
 Further documentation on generic algorithms can be found [here](http://www.cplusplus.com/reference/algorithm/).
@@ -131,7 +131,7 @@ vector<int> v = { 1, 2, 3, 4, 5 };
 transform(
     v.begin(),    // start of elements to transform
     v.end(),      // end of elements to transform
-    v.begin(),      // start of where to put elements to transform
+    v.begin(),    // start of where to put elements to transform
     [](double x) { return x*x; }
 );
 ```
