@@ -7,14 +7,14 @@ DoubleArray a, b;
 a = b; a.assign(b);
 
 DoubleArray& DoubleArray::operator=(const DoubleArray& other) {
-    if ( this != &other) {
+    if (this != &other) {
         delete[] buffer; // don't forget this or you'll get a memory leak!
         buffer = new double[other.capacity]();
         capacity = other.capacity;
         origin = other.origin;
         end = origin;
-        for ( int i=0; i<other.size(); i++) {
-            set(i,other.get(i));
+        for (int i = 0; i < other.size(); i++) {
+            set(i, other.get(i));
         }
     }
     return *this;
@@ -22,13 +22,13 @@ DoubleArray& DoubleArray::operator=(const DoubleArray& other) {
 ```
 
 Think of this code as defining a method called `=` that would be called with `set y to be =(x)` (psuedocode).
-This method uses the keyword `this`, which refers to the object being operated on. In our C array class, we passed a pointer (usually called `da`) to the object as the first argument to every function. In C++ the pointer is implicit, but can be access if needed with `this`. In the above code, `this` refers to the assignee (the left hand side of `y=x`) and `other` refers to the object being copied. Thus, the first line checks that these two are not the same (if they are, there is nothing to do -- although you could leave this out and truely make a copy).
+This method uses the keyword `this`, which refers to the object being operated on. In our C array class, we passed a pointer (usually called `da`) to the object as the first argument to every function. In C++ the pointer is implicit, but can be access if needed with `this`. In the above code, `this` refers to the assignee (the left hand side of `y = x`) and `other` refers to the object being copied. Thus, the first line checks that these two are not the same (if they are, there is nothing to do -- although you could leave this out and truely make a copy).
 
 Also note that the method accesses the private members of `other`, which is okay because this is a class method.
 
 ### Review: Returning Referenes
 
-Notice that the method returns a reference to the result of the copy. This is actually not needed to assign the left hand side (that's done in the body of the method), but is needed because an expression like `y=x` itself has a value, which should be a reference to `y`. This is so you can do things like
+Notice that the method returns a reference to the result of the copy. This is actually not needed to assign the left hand side (that's done in the body of the method), but is needed because an expression like `y = x` itself has a value, which should be a reference to `y`. This is so you can do things like
 
 ```c++
 y = x = z;
@@ -47,9 +47,11 @@ Returning a reference to `*this` is called _method chaining_.
 The STL uses function polymorphism to let you apply simple algorithms, such as finding and sorting, to pretty much any sequential container. One such method is called `find`. Here are a few examples:
 
 ```c++
-vector<string> v = { "The", "quick", "brown", "fox" };
+using namespace std;
+
+vector<string> v = {"The", "quick", "brown", "fox"};
 string s = "this is a string";
-int a[10] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+int a[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
 auto f1 = find(v.begin(), v.end(), "quick");
 cout << *f1; // "quick"
@@ -70,6 +72,8 @@ The `find` algorithm works on _any_ object that defines `==`. Other algorithms, 
 Here are a few more _read only_ algorithms (ones that do not change their arguments) like find:
 
 ```c++
+using namespace std;
+
 vector<int> v = {1, 2, 3, 4, 5},
             w = {2, 3, 4, 5, 6, 6, 7, 8};
 accumulate(v.begin(), v.end(), 0);    // add all elements in v to initial sum (== 0)
@@ -84,6 +88,8 @@ These work equally well on any sequential container of values for which operatio
 Algorithms that change the underlying array, include things like `sort` and `fill`:
 
 ```c++
+using namespace std;
+
 sort(v.begin(), v.end());                 // sort the elements
 fill(v.begin(), v.end(), 1);              // replace element with third argument (== 1)
 fill_n(v.begin(), 3, 1);                  // replace three elements at the beginning with 1
@@ -127,6 +133,8 @@ square(3.0); // 9.0
 Lambdas becomes useful when using generic algorithms, such as `transform`, which take functions as arguments:
 
 ```c++
+using namespace std;
+
 vector<int> v = { 1, 2, 3, 4, 5 };
 transform(
     v.begin(),    // start of elements to transform
@@ -143,6 +151,8 @@ Note that lambda expressions do not return function pointers. Rather, they retur
 The square brackets of a lambda expression can list variables to _capture_ from the surrounding scope. For example, if we define a function like this:
 
 ```c++
+using namespace std;
+
 void add_to_all(vector<int> &v, int x) {
     transform(
         v.begin(),
@@ -156,6 +166,8 @@ void add_to_all(vector<int> &v, int x) {
 the C++ compiler will complain that the lambda expression does not have access to the variable `x` in its scope. We can fix this by _capturing_ `x` as follows:
 
 ```c++
+using namespace std;
+
 void add_to_all(vector<int> &v, int x) {
     transform(
         v.begin(),
@@ -199,7 +211,7 @@ TEST(Lambda, Argument) {
     std::vector<int> v = { 1,2,3,4,5 };
     auto f = [](int x) { return x*x; };
     std::vector<int> u = map(v, f);
-    for ( auto x : u ) {
+    for (auto x : u) {
         std::cout << x << " ";
     }
     std::cout << "\n";
@@ -213,24 +225,30 @@ Associative containers are different from sequential containers in that they ind
 In a `map`, a set of keys are used to index a set of values. For example, you might define a `map` as follows:
 
 ```c++
-   map<string,string> person;
-   person["First"] = "Alan";
-   person["Last"] = "Turing";
-   person["job"] = "Code breaker";
+using namespace std;
+
+map<string, string> person;
+person["First"] = "Alan";
+person["Last"] = "Turing";
+person["job"] = "Code breaker";
 ```
 
 Note that the `map` template takes two types, the key type and the value type. They do not have to be the same:
 
 ```c++
-    map<string, vector<int>> sequence;
-    sequence["ints"] = { 1, 2, 3, 4, 5, 6 };
-    sequence ["squares"] = { 1, 4, 9, 16, 25, 36 };
-    sequence["fib"] = { 1, 1, 2, 3, 5, 8, 13 };
+using namespace std;
+
+map<string, vector<int>> sequence;
+sequence["ints"] = { 1, 2, 3, 4, 5, 6 };
+sequence ["squares"] = { 1, 4, 9, 16, 25, 36 };
+sequence["fib"] = { 1, 1, 2, 3, 5, 8, 13 };
 ```
 
 or another (inefficient) way to make an array of doubles
 
 ```c++
+using namespace std;
+
 map<unsigned int, double> a;
 a[0] = 123;
 a[5] = 34;
@@ -297,7 +315,8 @@ Note that _elma_ is a new project being developed by and for this course. Thus, 
 To run a docker container with Elma already installed, do
 
 ```bash
-docker run -v $PWD:/source -it klavins/elma:latest bash
+docker run -v $PWD:/source -it klavins/elma:latest bash  // MacOS, Linux
+docker run -v /$PWD:/source -it klavins/elma:latest bash  // Windows
 ```
 
 or similar, depending on your configuration. This will load an image that Professor Klavins has already prepared and put up on [Dockerhub](https://hub.docker.com/repository/docker/klavins/elma).
@@ -319,16 +338,16 @@ Before we delve into the details of how _elma_ works, here is an example of how 
       void init() {}
       void start() {}
       void update() {
-        if ( channel("Velocity").nonempty() ) {
+        if (channel("Velocity").nonempty()) {
           speed = channel("Velocity").latest();
         }
-        channel("Throttle").send(-KP*(speed - desired_speed));
+        channel("Throttle").send(-KP * (speed - desired_speed));
       }
       void stop() {}
     private:
       double speed = 0;
       const double desired_speed = 50.0,
-                   KP = 0.5;
+                              KP = 0.5;
   };
 ```
 
@@ -413,7 +432,7 @@ Note that we can't print a `duration` directly, as it is a complex type. Instead
 Durations have standard arithmetic defined on them. The result of adding two durations is to get, not surprisingly, the sum of the durations. For example, the expression
 
 ```c++
-auto z = x+y; // 20 ms
+auto z = x + y; // 20 ms
 ```
 
 adds the two durations together to get a new duration. Note that in this case `x` and `y` have different period sizes and counts. According to the specification, "when two duration objects of different types are involved, the one with the longest period (as determined by common_type) is converted before the operation." Thus, y is converted to `milliseconds_type` and then added to `x` to get `z`.
@@ -445,15 +464,14 @@ The goal is for _elma_ to manage when processes execute at approximately millise
 So that we know what time it is, the `chrono` library provides several clocks. We will use the `high_resolution_clock`, which on most systems will have a resolution of one nanosecond. To get the current time with the clock, you write
 
 ```c++
-using namespace std::chrono;
-high_resolution_clock::time_point t = high_resolution_clock::now();
+std::chrono::high_resolution_clock::time_point t = high_resolution_clock::now();
 ```
 
 In this case `t` represents the current time, but it isn't much of use, unless you use it relative to some other time. For example, you can ask for the amount of time since 1970 (known as the beginning of time for computers) via:
 
 ```c++
 std::cout << t.time_since_epoch().count() << " ns since 1970\n";
-typedef duration<double,std::ratio<3600*24*365,1>> years;
+typedef std::chrono::duration<double,std::ratio<3600*24*365,1>> years;
 auto y = years(t.time_since_epoch());
 std::cout << y.count() << " years since 1970\n";
 ```
@@ -470,10 +488,10 @@ which prints something like
 More likely, you would use time points to mark different times in the execution of a program. For example,
 
 ```c++
-high_resolution_clock::time_point t1, t2;
-t1 = high_resolution_clock::now();
+std::chrono::high_resolution_clock::time_point t1, t2;
+t1 = std::chrono::high_resolution_clock::now();
 f(); // a function that might take a while
-t2 = high_resolution_clock::now();
+t2 = std::chrono::high_resolution_clock::now();
 std::cout << "f took " << (t2 - t1).count() << " ns\n";
 ```
 
@@ -514,12 +532,12 @@ For example, here is part of the `Process` class definition in `elma`.
       virtual void update() = 0;
       virtual void stop() = 0;
 
-      virtual string name() { return _name; }  // virtual method that may be re-defined by child class
+      virtual std::string name() { return _name; }  // virtual method that may be re-defined by child class
       status_type status() { return _status; }
 
       private:
 
-      string _name;
+      std::string _name;
       status_type _status;
 
   };
@@ -544,12 +562,12 @@ Thus, virtual as opposed to pure virtual methods actually have implementations. 
 Interestingly, derived classes can also override non-virtual methods. However, doing so will have consequences. Suppose we derive a class as follows.
 
 ```c++
-class BoringProcess : public Process {
+class BoringProcess : public elma::Process {
     void init() {}    // overriding pure virtual
     void start() {}
     void update() {}
     void stop() {}
-    string name() { return "nothing"; }             // overiding a virtual
+    std::string name() { return "nothing"; }             // overiding a virtual
     status_type status() { return UNINITIALIZED; }  // overrinding a non-virtual
 }
 ```
@@ -558,10 +576,10 @@ Now suppose we define two variables to refer to processs:
 
 ```c++
 BoringProcess p("Boring!");
-Process * q = &p; // Tell C++ to think of q as a process, not a BoringProcess
-q->update();      // Calls BoringProcess.update()
-q->name();        // Calls BoringProcess.name()
-q->status();      // Calls Process.status() (probably not what we wanted)
+elma::Process * q = &p; // Tell C++ to think of q as a process, not a BoringProcess
+q->update();            // Calls BoringProcess.update()
+q->name();              // Calls BoringProcess.name()
+q->status();            // Calls Process.status() (probably not what we wanted)
 ```
 
 # Inheritance Summary
@@ -579,14 +597,14 @@ Processes have a number of quantites to keep track of, such as their status, the
 ```c++
 private:
 
-string _name;
+std::string _name;
 status_type _status;
-high_resolution_clock::duration _period,          // request time between updates
+std::chrono::high_resolution_clock::duration _period,          // request time between updates
                                 _previous_update, // duration from start to update before last
                                 _last_update;     // duration from start to last update
-time_point<high_resolution_clock> _start_time;    // time of most recent start
+std::chrono::high_resolution_clock::time_point _start_time;    // time of most recent start
 int _num_updates;                                 // number of times update() has been called
-Manager * _manager_ptr;                           // a pointer to the manager
+elma::Manager * _manager_ptr;                           // a pointer to the manager
 ```
 
 Variables that are specific to an instance of a class are called _instance variables_. Note that by convention we are prefixing all instance variables by an underscore "`_`", so it is easy to see which variables are which. Doing so also makes it less likely that derived classes will override them by accident (unless they use the same convention). We do not want any derived class to access these variables directly, so they are declared `private`.
@@ -596,13 +614,13 @@ Variables that are specific to an instance of a class are called _instance varia
 Derived classes might want to know the value of these variables are, so we provide a public interface to all of them:
 
 ```c++
-inline string name() { return _name; }
+inline std::string name() { return _name; }
 inline status_type status() { return _status; }
-inline high_resolution_clock::duration period() { return _period; }
+inline std::chrono::high_resolution_clock::duration period() { return _period; }
 inline int num_updates() { return _num_updates; }
-inline time_point<high_resolution_clock> start_time() { return _start_time; }
-inline high_resolution_clock::duration last_update() { return _last_update; }
-inline high_resolution_clock::duration previous_update() { return _previous_update; }
+inline std::chrono::high_resolution_clock::time_point start_time() { return _start_time; }
+inline std::chrono::high_resolution_clock::duration last_update() { return _last_update; }
+inline std::chrono::high_resolution_clock::duration previous_update() { return _previous_update; }
 ```
 
 The keyword `inline` states that compiled code using these methods will simply replace method calls by the body of the function, so that no function calls will be made when they are used. Using `inline` is generally faster. If the function body gets big and is used frequently, `inline` takes up a lot of space in the compiled code, so `inline` is generally used only with very short function bodies.
@@ -627,8 +645,8 @@ class Process {
   private:
   // Manager interface
   void _init();
-  void _start(high_resolution_clock::duration elapsed);
-  void _update(high_resolution_clock::duration elapsed);
+  void _start(std::chrono::high_resolution_clock::duration elapsed);
+  void _update(std::chrono::high_resolution_clock::duration elapsed);
   void _stop();
 
   ...
@@ -654,9 +672,9 @@ void Process::_init() {
 The `_start` method sets the status of the process to `RUNNING`, and initializes the start time, last update time, and the number of updates. Then it calls the user's `start` method.
 
 ```c++
-void Process::_start(high_resolution_clock::duration elapsed) {
+void Process::_start(std::chrono::high_resolution_clock::duration elapsed) {
     _status = RUNNING;
-    _start_time = high_resolution_clock::now();
+    _start_time = std::chrono::high_resolution_clock::now();
     _last_update = elapsed;
     _num_updates = 0;
     start();
@@ -668,7 +686,7 @@ void Process::_start(high_resolution_clock::duration elapsed) {
 The `_update` method updates the previous update and last update, calls the user's `update` method and then increments the number of udpates.
 
 ```c++
-void Process::_update(high_resolution_clock::duration elapsed) {
+void Process::_update(std::chrono::high_resolution_clock::duration elapsed) {
     _previous_update = _last_update;
     _last_update = elapsed;
     update();
@@ -693,20 +711,20 @@ We define a couple of convenience methods for `Process` that allow the user to g
 
 ```c++
 double Process::milli_time() {
-    duration<double, std::milli> time = last_update();
+    std::chrono::duration<double, std::milli> time = last_update();
     return time.count();
 }
 double Process::delta() {
-    duration<double, std::milli> diff = last_update() - previous_update();
+    std::chrono::duration<double, std::milli> diff = last_update() - previous_update();
     return diff.count();
 }
 ```
 
-The first method returns the number of milliseconds since the last update, and the second returns the difference between the last update and the previous update durations. Note that `_last_update` is updates just before the user's `update` method is called, so it should be approximately the current amount of time since the process started.
+The first method returns the number of milliseconds since the last update, and the second returns the difference between the last update and the previous update durations. Note that `_last_update` is updated just before the user's `update` method is called, so it should be approximately the current amount of time since the process started.
 
 # The Manager
 
-The manager is class is defined as follows:
+The manager class is defined as follows:
 
 ```c++
 class Manager {
@@ -715,24 +733,24 @@ class Manager {
 
     Manager() {}
 
-    Manager& schedule(Process& process, high_resolution_clock::duration period);
+    Manager& schedule(Process& process, std::chrono::high_resolution_clock::duration period);
 
     Manager& all(std::function<void(Process&)> f);
 
     Manager& init();
     Manager& start();
     Manager& stop();
-    Manager& run(high_resolution_clock::duration);
+    Manager& run(std::chrono::high_resolution_clock::duration);
     Manager& update();
 
-    inline high_resolution_clock::time_point start_time() { return _start_time; }
-    inline high_resolution_clock::duration elapsed() { return _elapsed; }
+    inline std::chrono::high_resolution_clock::time_point start_time() { return _start_time; }
+    inline std::chrono::high_resolution_clock::duration elapsed() { return _elapsed; }
 
     private:
 
-    vector<Process *> _processes;
-    high_resolution_clock::time_point _start_time;
-    high_resolution_clock::duration _elapsed;
+    std::vector<Process *> _processes;
+    std::chrono::high_resolution_clock::time_point _start_time;
+    std::chrono::high_resolution_clock::duration _elapsed;
 
 };
 ```
@@ -751,7 +769,7 @@ m.schedule(p, 1_ms)
 Note that the `schedule` method returns a reference to the manager itself so that you can do `method chaining` on the manager. This makes code a bit easier to read. The implementation of `schedule` is
 
 ```c++
-Manager& Manager::schedule(Process& process, high_resolution_clock::duration period) {
+Manager& Manager::schedule(Process& process, std::chrono::high_resolution_clock::duration period) {
 
     process._period = period;
     process._manager_ptr = this;
@@ -817,8 +835,8 @@ Finally, we define a `run` method that runs all processes for the requested amou
 ```c++
 Manager& Manager::run(high_resolution_clock::duration runtime) {
 
-    _start_time = high_resolution_clock::now();
-    _elapsed = high_resolution_clock::duration::zero();
+    _start_time = std::chrono::high_resolution_clock::now();
+    _elapsed = std::chrono::high_resolution_clock::duration::zero();
 
     start();
 
@@ -903,7 +921,7 @@ There are many ways that concurrent systems deal with process communication. Her
 
 - **Shared variables:** in some global space that all processes have access to. The downside is the lack of enforceable conventions on how variables are accessed.
 - **Events:** Processes can trigger and listen to events. Each event has associated data. Interrupts and interrupt handlers are an example. We will describe how elma does this later.
-- **Channels:** First in first out queues that let processes send data that other processes can subscribe to. This is common with embedded real time systems where, for example, a sensor is sending data continuously that other processes consume.
+- **Channels:** FIFO (First In First Out) queues that let some processes publish data that other processes can subscribe to. This is common with embedded real time systems where, for example, a sensor is sending data continuously that other processes consume.
 
 # Channels
 
@@ -914,8 +932,8 @@ class Channel {
 
     public:
 
-    Channel(string name) : _name(name), _capacity(100) {}
-    Channel(string name, int capacity) : _name(name), _capacity(capacity) {}
+    Channel(std::string name) : _name(name), _capacity(100) {}
+    Channel(std::string name, int capacity) : _name(name), _capacity(capacity) {}
 
     Channel& send(double);
     Channel& flush(double);
@@ -925,14 +943,14 @@ class Channel {
     inline int size() { return _queue.size(); }
     inline bool empty() { return _queue.size() == 0; }
     inline bool nonempty() { return _queue.size() > 0; }
-    inline string name() { return _name; }
+    inline std::string name() { return _name; }
     inline int capacity() { return _capacity; }
 
     private:
 
-    string _name;
+    std::string _name;
     int _capacity;
-    deque<double> _queue;
+    std::deque<double> _queue;
 
 };
 ```
@@ -979,7 +997,7 @@ Note that we throw exceptions if a user process tries to access an empty channel
 To make channels accessible to the manager, we add a new private datum `_channels`:
 
 ```c++
-map<string, Channel *> _channels;
+std::map<string, Channel *> _channels;
 ```
 
 and a method for adding and accessing them
@@ -990,7 +1008,7 @@ Manager& Manager::add_channel(Channel& channel) {
     return *this;
 }
 
-Channel& Manager::channel(string name) {
+Channel& Manager::channel(std::string name) {
     if ( _channels.find(name) != _channels.end() ) {
       return *(_channels[name]);
     } else {
@@ -1004,7 +1022,7 @@ Channel& Manager::channel(string name) {
 To make channels accessible to processes, we basically just go through the `_manager_ptr` in the process:
 
 ```c++
-Channel& Process::channel(string name) {
+Channel& Process::channel(std::string name) {
     return _manager_ptr->channel(name);
 }
 ```
@@ -1033,7 +1051,7 @@ or
 
 ```
 v(t) = v(t-h) + h dv/dt
-     = v(t-h) - h (k v - u)
+     = v(t-h) - h (k v - u) / m
 ```
 
 In our case, `h` is given by the difference between the last update and the previous update, which is available to user processes via the `delta()` function.
@@ -1050,11 +1068,11 @@ class Car : public elma::Process {
       force = 0;
     }
     void update() {
-      if ( channel("Throttle").nonempty() ) {
+      if (channel("Throttle").nonempty()) {
         force = channel("Throttle").latest();
       }
-      velocity += ( delta() / 1000 ) * ( - k * velocity + force ) / m;
-          velocity += ( delta() / 1000 ) * ( - k * velocity + force ) / m;
+      velocity += (delta() / 1000) * (-k * velocity + force) / m;
+          velocity += (delta() / 1000) * (-k * velocity + force) / m;
           channel("Velocity").send(velocity);
           std::cout << "t: "  << milli_time() << " ms\t"
                     << " u: " << force        << " N\t"
@@ -1074,10 +1092,10 @@ class Car : public elma::Process {
 A very simple controller uses proportional feedback. Basically, we set
 
 ```
-u = - Kp ( v - vdes )
+u = -Kp (v - v_des)
 ```
 
-where `Kp` is the proportional gain and `vdes` is the desired velocity. To make a control process, we write
+where `Kp` is the proportional gain and `v_des` is the desired velocity. To make a control process, we write
 
 ```c++
 class CruiseControl : public elma::Process {
@@ -1088,16 +1106,16 @@ class CruiseControl : public elma::Process {
       speed = 0;
     }
     void update() {
-      if ( channel("Velocity").nonempty() ) {
+      if (channel("Velocity").nonempty()) {
         speed = channel("Velocity").latest();
       }
-      channel("Throttle").send(-KP*(speed - desired_speed));
+      channel("Throttle").send(-KP * (speed - desired_speed));
     }
     void stop() {}
   private:
     double speed;
     const double desired_speed = 50.0,
-                 KP = 0.5;
+                            KP = 0.5;
 };
 ```
 
@@ -1148,6 +1166,6 @@ t: 160.079 ms    u: 15030.2 N    v: 2.30617 m/s
 
 # Testing Processes
 
-Testing processes can be challenging, because they are not simply functions that return values, but dynamic entities. One way to proceed is to define test processes that you compose with the process you have defined to see if it does the right thing. For example, suppose you have a process that keeps track of the minimum and maximum values it has seen on a channel over time. To test such a process, you might build a test process that sends values to the channel and also knows what minimum and maximum values it has sent. Then you compose the two processes together and check that it works. Although this does not test all the behavior, it does test some of the expected behavior. And new tests can be defines as issues arise.
+Testing processes can be challenging, because they are not simply functions that return values, but dynamic entities. One way to proceed is to define test processes that you compose with the process you have defined to see if it does the right thing. For example, suppose you have a process that keeps track of the minimum and maximum values it has seen on a channel over time. To test such a process, you might build a test process that sends values to the channel and also knows what minimum and maximum values it has sent. Then you compose the two processes together and check that it works. Although this does not test all the behavior, it does test some of the expected behavior. And new tests can be defined as issues arise.
 
 For an example of this approach, see the [how_to_test] directory of this week's notes.
