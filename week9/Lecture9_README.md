@@ -371,6 +371,7 @@ To create a new project, use `esm` as follows:
 mkdir my_project
 cd my_project
 esm init
+esm start
 ```
 
 This will create the following directories and files
