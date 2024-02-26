@@ -371,6 +371,7 @@ To create a new project, use `esm` as follows:
 mkdir my_project
 cd my_project
 esm init
+esm start
 ```
 
 This will create the following directories and files
@@ -997,9 +998,11 @@ Compiling and running this code should show a robot wandering around the arena.
 
 # In Class Work
 
-1. Make a wanderer.
+We have prepared a demo for wanderers which can be found in this week's "wanderers" folder.
 
-2. Make multiple wanderers. This is a little tricky because you need a separately named "tick" event for each robot (By default, sent to any process watching them, in any agent).
+1. Run the demo. You should see 6 wanderers in an environment with 3 blocks.
+
+2. Make all the wanderers black and move twice faster.
 
 # Sensors
 
