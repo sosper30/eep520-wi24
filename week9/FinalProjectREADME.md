@@ -1,4 +1,4 @@
-# Final Projects Detailed Assignemnt
+# Final Projects Detailed Assignment
 
 ## Due Sunday, March 10th at 11:59pm
 
