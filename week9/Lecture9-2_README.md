@@ -424,31 +424,25 @@ TEST(Client,ProcessInterface) {
 
 # Enviro New Features Coming Soon
 
-## Definitely
+## Already done
 
 - Documentation
 - get_x, get_y, get_angle instead of chipmunk
 - Return identity with distance
 - Respond to keyboard events
-- Have an omni directional robot
+- Have an omni-directional robot
 - Other modes of control (path following, for example)
 - Have non-physical objects (like buttons)
 - Have invisible, non-physical objects (like a game controller that keeps the score or responds to collision events)
 - The ability to dynamically spawn new and delete agents on the fly
 
-## Maybe
+## Some are done some maybe
 
 - Change size or appearance of agents
 - Change the center of the view and possibly the magnification
 - Allow multiple users logged in from different clients
 - Add words and other decorations
 
-# Brainstorm
-
-Now that you have worked with `enviro` for a week and have learned a bit about how it works, discuss
-
-- What you might do with your project.
-- What are some features you might need or like to have in enviro.
 
 # Enviro Examples
 
