@@ -1,6 +1,3 @@
-# Software Engineering For Embedded Applications
-
-```
 # Internet Protocols
 
 ## IP
